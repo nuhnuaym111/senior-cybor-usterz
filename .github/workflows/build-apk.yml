@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'senior-cybor-project.zip'
+      - 'SENIOR-CYBOR-Android-Starter-v2.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Extract SENIOR CYBOR project archive
         run: |
-          unzip -q senior-cybor-project.zip -d /tmp/senior-cybor
+          unzip -q SENIOR-CYBOR-Android-Starter-v2.zip -d /tmp/senior-cybor
           cp -R /tmp/senior-cybor/senior-cybor/. .
 
       - name: Set up Node.js
@@ -27,13 +27,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install project dependencies
         run: npm install
 
       - name: Add Android platform
         run: npx cap add android
 
-      - name: Sync Android project
+      - name: Sync web app to Android
         run: npx cap sync android
 
       - name: Set up Java
@@ -53,4 +53,4 @@ jobs:
         with:
           name: SENIOR-CYBOR-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error 
+          if-no-files-found: error
